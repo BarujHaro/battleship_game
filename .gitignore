@@ -1,0 +1,9 @@
+# Ignore build artifacts
+/build/
+/dist/
+
+# Ignore dependency directories
+node_modules/
+
+# Ignore IDE-specific files
+.vscode/
