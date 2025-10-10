@@ -1,7 +1,7 @@
-const Gameboard = require('./gameboard.js');
-const Ship = require('./ship.js');
+import Gameboard from './gameboard.js';
+import Ship from './ship.js';
  
-class Player {
+export default class Player {
     constructor(type='human'){
         this.type = type; //Type of player
         this.gameboard = new Gameboard(); //Board of the player 
@@ -17,13 +17,17 @@ class Player {
         ];
     }
     //place ship
-        placeShip(shipIndex, x, y, isVertical) {
+    placeShip(shipIndex, x, y, isVertical) {
+         
         if (shipIndex < 0 || shipIndex >= this.ships.length) {
             return false;
         }
         
         const ship = this.ships[shipIndex];
-        return this.gameboard.placeShip(ship, x, y, isVertical);
+         
+        const result = this.gameboard.placeShip(ship, x, y, isVertical);
+         
+        return result;
     }
 
     // Coloca todos los barcos aleatoriamente (para computadora)
@@ -35,6 +39,7 @@ class Player {
                 const y = Math.floor(Math.random() * 10);
                 const isVertical = Math.random() > 0.5;
                 placed = this.gameboard.placeShip(ship, x, y, isVertical);
+                //console.log(`${ship} ${x} ${y}`);
             }
         });
     }
@@ -85,5 +90,5 @@ computerAttack(enemyGameboard){
 
     
 }
-
-module.exports = Player;
+ 
+//module.exports = Player;

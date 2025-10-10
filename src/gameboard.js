@@ -1,6 +1,6 @@
-const Ship = require('./ship.js');
+import Ship from './ship.js';
 
-class Gameboard{
+export default class Gameboard{
     constructor(){
         this.board = Array(10).fill().map(() => Array(10).fill(null));
         this.ships=[]; //array for the ships in the board
@@ -48,6 +48,7 @@ InBoard(x, y, shipLength, isVertical) {
     placeShip(ship, x, y, isVertical) {
     const coordinates = [];
     //Verify if the ship is n the board
+    
     if (this.InBoard(x, y, ship.length, isVertical)) {
         // Generate coordinates
         for (let i = 0; i < ship.length; i++) {
@@ -108,5 +109,6 @@ InBoard(x, y, shipLength, isVertical) {
         return this.ships.every(shipData => shipData.ship.sunk);
     }
 
-}
-module.exports = Gameboard;
+} 
+
+//module.exports = Gameboard;

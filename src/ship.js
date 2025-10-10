@@ -1,5 +1,5 @@
 //Class ship 
-class Ship {
+export default class Ship {
     constructor(length) {
         this.length = length; //Length of the ship /health
         this.hits = 0; 
@@ -17,5 +17,6 @@ class Ship {
         return this.sunk;
           
     }
-}
-module.exports = Ship;
+} 
+
+//module.exports = Ship;

@@ -9,7 +9,7 @@ ship test
     Se hacen pruebas de creacion de barcos y con golpes hasta que se hunda
 
 
-
+ 
 gameboard - completo
     crea una matriz de 10x10
     puedes poner ships en un array
