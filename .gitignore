@@ -1,7 +1,6 @@
 # Ignore build artifacts
 /build/
 /dist/
-.github
 .git
 .gitignore
 

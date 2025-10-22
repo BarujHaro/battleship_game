@@ -1,0 +1,82 @@
+name: CI and deploy                 # Nombre del workflow (Continuous Integration)
+
+on:                        # Eventos que disparan el workflow
+  push:                    # Cuando hay un "push" a la rama indicada
+    branches: [main]       # Solo en la rama 'main'
+  pull_request:            # Cuando se abre o actualiza un Pull Request
+    branches: [main]       # Solo en Pull Requests hacia 'main'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+
+jobs:                      # Definición de trabajos (jobs) que se ejecutarán
+  build:                   # Nombre del job (puedes ponerle cualquier nombre)
+    runs-on: ubuntu-latest # Ejecutar el job en un runner con Ubuntu último
+    #RUNS-ON define el sistema operativo del runner, se puede windows o macos, pero node usa ubuntu
+  #Es donde se ejecutan los pasos del workflow
+
+    steps:                 # Pasos que se ejecutarán secuencialmente
+    - name: Checkout repo          # Paso 1: obtener el código del repo
+      uses: actions/checkout@v3   # Acción oficial de GitHub para hacer checkout
+
+    - name: Set up Node.js        # Paso 2: configurar Node.js
+      uses: actions/setup-node@v3 # Acción oficial para instalar Node.js
+      with:
+        node-version: 20          # Versión de Node.js a usar (ej: 20)
+    #Aunque el proyecto sea frontend puro, el workflow usa node, porque herramientas modernas como tests o lint dependen de node
+    #se puede eliminar pero es muy comun mantenerlo para automatizar tareas
+
+
+    - name: Install dependencies   # Paso 3: instalar dependencias del proyecto
+      run: npm install             # Ejecuta `npm install` en la raíz del proyecto
+
+
+#Linter es una herramienta de analisis de codigo revisa el codigo fuente para detectar errores o problemas
+    - name: Run linter             # Paso 4: ejecutar linter para revisar el código
+      run: npx eslint . || echo "No ESLint configured" 
+      # `npx eslint .` revisa todo el código con ESLint
+      # Si no hay ESLint configurado, evita que falle con `echo`
+
+    #- name: Run tests              # Paso 5: ejecutar tests del proyecto
+      #run: npm test || echo "No tests configured"
+      # `npm test` ejecuta los tests definidos en package.json
+      # Si no hay tests, no rompe el workflow gracias al `echo`
+    #No actualiza local 
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+
+        path: '.'
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}  # Token automático de GitHub
+        publish_dir: ./public                            # Carpeta con tu index.html
+            # Runs a single command using the runners shell
+    - name: Run a one-line script
+      run: echo Hello test
+
+#- name: Deploy to GitHub Pages
+ # uses: peaceiris/actions-gh-pages@v3
+ # with:
+   # github_token: ${{ secrets.GITHUB_TOKEN }}
+   # publish_dir: ./   # donde está tu index.html
+
