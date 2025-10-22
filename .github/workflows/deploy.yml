@@ -65,14 +65,13 @@ jobs:                      # Definición de trabajos (jobs) que se ejecutarán
         path: '.'
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v4
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}  # Token automático de GitHub
         publish_dir: ./public                            # Carpeta con tu index.html
             # Runs a single command using the runners shell
     - name: Run a one-line script
-      run: echo Hello test
+      run: echo "Deployment completed successfully"
 
 #- name: Deploy to GitHub Pages
  # uses: peaceiris/actions-gh-pages@v3
