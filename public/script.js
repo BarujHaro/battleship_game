@@ -3,7 +3,7 @@ import { updateComputerAttackOnUI } from "./scripts/BoardUI.js";
 import { showMessage } from "./scripts/messageUI.js";
 import { GameController } from "./scripts/controller.js";
 import { addMusicEvents } from "./scripts/musicUI.js";
-
+ 
 document.addEventListener("DOMContentLoaded", () => {
     const audioPlayer = document.getElementById("audioPlayer");
     addMusicEvents(audioPlayer);
