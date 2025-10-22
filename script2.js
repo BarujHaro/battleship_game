@@ -1,4 +1,4 @@
-import { gameStart, humanPlaceShip, handlePlayerAttack, resetGame } from "../src/main.js";
+import { gameStart, humanPlaceShip, handlePlayerAttack, resetGame } from "./src/main.js";
  
 //Control variables
 const ships = [3,3,2];

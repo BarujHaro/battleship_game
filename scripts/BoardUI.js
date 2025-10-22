@@ -1,4 +1,4 @@
-import { humanPlaceShip, handlePlayerAttack } from "../../src/main.js";
+import { humanPlaceShip, handlePlayerAttack } from "../src/main.js";
 import { showMessage } from "./messageUI.js";
 
 

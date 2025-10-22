@@ -1,7 +1,7 @@
 import { ChangeStyle, printBoards, ChangeBoardClicks, CleanDiv, ship_changer, clickedPlayerCell, clickedEnemyCell, ChangeEnable } from "./BoardUI.js";
 
 import { showMessage } from "./messageUI.js";
-import { gameStart, resetGame } from "../../src/main.js";
+import { gameStart, resetGame } from "../src/main.js";
 
 
 export class GameController {
