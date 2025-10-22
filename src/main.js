@@ -3,7 +3,7 @@ let playerTurn = true;
 let currentShipIndex = 0;
 let message = "";
 let humanPlayer, computerPlayer; 
-
+ 
 
 export function gameStart(){
     humanPlayer = new Player('human');
@@ -12,10 +12,10 @@ export function gameStart(){
 
     computerPlayer.placeShipsRandomly();
 
-        // 🧩 Aquí ves cómo quedaron los barcos de la computadora
+        
     console.log("=== Computadora colocó sus barcos ===");
-    console.log(computerPlayer.gameboard.ships); // muestra cada barco y sus posiciones
-    console.log(computerPlayer.gameboard.board); // si tienes una matriz 10x10 puedes ver dónde están
+    console.log(computerPlayer.gameboard.ships);  
+    console.log(computerPlayer.gameboard.board);  
 
 
     return {
@@ -28,7 +28,7 @@ export function gameStart(){
 
 
 
-export function humanPlaceShip(x, y, isVertical, humanPlayer) {
+export function humanPlaceShip(x, y, isVertical) {
     if (currentShipIndex >= humanPlayer.ships.length) return false;
        
     const placed = humanPlayer.placeShip(currentShipIndex, x, y, isVertical);
@@ -49,44 +49,76 @@ export function humanPlaceShip(x, y, isVertical, humanPlayer) {
 
 export function handlePlayerAttack(x,y){
     if (!playerTurn) return;
-    const attackResult = humanPlayer.attack(computerPlayer.gameboard,x,y);
+    const hit = humanPlayer.attack(computerPlayer.gameboard,x,y);
+        console.log(` Player attacked (${x}, ${y}) → ${hit ? "HIT!" : " MISS"}`);
     
+
 
     if (computerPlayer.gameboard.allShipsSunk()) {
         message='¡You win!';
-        return;
+       
+        const playerWinEvent = new CustomEvent('PlayerWin', {
+            detail: { message }
+            });
+        document.dispatchEvent(playerWinEvent);
+        return true;
+
     }
 
     playerTurn = false;
-    setTimeout(handleComputerTurn, 1000);
+    setTimeout(handleComputerTurn, 800);
+    if (hit){
+        return true;
+    }
+    
 }
 
 function handleComputerTurn() {
     const attackResult = computerPlayer.attack(humanPlayer.gameboard);
-   
+     const { x, y } = attackResult.coordinates;
+    const hit = attackResult.result;
+
+  
+    const computerAttackEvent = new CustomEvent('computerAttack', {
+        detail: {
+            x: x,
+            y: y,
+            hit: hit
+        }
+    });
+    document.dispatchEvent(computerAttackEvent);
 
     if (humanPlayer.gameboard.allShipsSunk()) {
-        message='You lose';
+        message='¡You Lose!';
+       
+        const ComputerWinEvent = new CustomEvent('ComputerWin', {
+            detail: { message }
+            });
+        document.dispatchEvent(ComputerWinEvent);
         return;
+
     }
 
-    playerTurn = true;
 
+
+    playerTurn = true;
+   
 
     
 }
 
 
-function resetGame() {
-    const { humanPlayer, computerPlayer } = gameStart();
+export function resetGame() {
     playerTurn = true;
-    message = "Nuevo juego iniciado";
-    return { humanPlayer, computerPlayer };
+    resetShipIndex();
+    message = "";
 }
 
 export function resetShipIndex() {
     currentShipIndex = 0;
 }
+
+
 
 export default {
   gameStart,
@@ -95,5 +127,3 @@ export default {
   handleComputerTurn,
   resetGame
 };
-
-//module.exports = gameStart;

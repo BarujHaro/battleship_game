@@ -67,7 +67,8 @@ computerAttack(enemyGameboard){
     do{ 
         x = Math.floor(Math.random() * 10); 
         y = Math.floor(Math.random() * 10); 
-    }while(this.hasAttacked(x,y));//Generate coordinates while it hasnt been attacked
+    }while(this.hasAttacked(x,y));
+    //Generate coordinates while it hasnt been attacked
 
     //Register attack
         this.previousAttacks.push({ x, y });

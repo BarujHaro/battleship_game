@@ -7,11 +7,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Battleship</h1>
-    <div id="message">
-      
+    <div id="cont-img"></div>
+
+    <audio id="audioPlayer" src="./assets/music_play.mp3" loop autoplay>    </audio>
+
+    <div class="icon-div">
+        <div id="playBtn"><img class="icons" src="./assets/play.png" alt="Play"/></div>
+        <div id="pauseBtn" ><img class="icons" src="./assets/pause.png" alt="Pause"/></div>
     </div>
 
+
+
+    <h1>Battleship</h1>
+    <div id="message"></div>
+
+
+    
     <div id="boards" class="boards">
         <div class="individual-board"  >
             <h2>Player Board</h2>
@@ -23,7 +34,7 @@
         </div>
     </div>
 
-    <div>
+    <div >
         <button id="place">Place ships</button>
         <button id="start">Start Game</button>
         <button id="restart">Restart Game</button>
