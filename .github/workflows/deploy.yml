@@ -30,7 +30,11 @@ jobs:                      # Definición de trabajos (jobs) que se ejecutarán
     steps:                 # Pasos que se ejecutarán secuencialmente
     - name: Checkout repo          # Paso 1: obtener el código del repo
       uses: actions/checkout@v3   # Acción oficial de GitHub para hacer checkout
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        submodules: recursive
 
+        
     - name: Set up Node.js        # Paso 2: configurar Node.js
       uses: actions/setup-node@v3 # Acción oficial para instalar Node.js
       with:
