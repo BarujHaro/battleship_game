@@ -13,9 +13,9 @@ export function gameStart(){
     computerPlayer.placeShipsRandomly();
 
         
-    console.log("=== Computadora colocó sus barcos ===");
-    console.log(computerPlayer.gameboard.ships);  
-    console.log(computerPlayer.gameboard.board);  
+    //console.log("=== Computadora colocó sus barcos ===");
+    //console.log(computerPlayer.gameboard.ships);  
+    //console.log(computerPlayer.gameboard.board);  
 
 
     return {
@@ -50,8 +50,7 @@ export function humanPlaceShip(x, y, isVertical) {
 export function handlePlayerAttack(x,y){
     if (!playerTurn) return;
     const hit = humanPlayer.attack(computerPlayer.gameboard,x,y);
-        console.log(` Player attacked (${x}, ${y}) → ${hit ? "HIT!" : " MISS"}`);
-    
+   
 
 
     if (computerPlayer.gameboard.allShipsSunk()) {
